@@ -1,15 +1,8 @@
 import { defineConfig } from "@neon/config/v1";
 
+// Lakebase Postgres only. Sign-in is handled by Azure AD B2C, so Neon Auth stays off.
+// Add `buckets` back here if profile photo uploads are introduced.
 export default defineConfig({
-  // Declare your Neon services here
-  preview: {
-    realtime: true,
-  },
-  auth: true,
-  buckets: {
-    // "private" is the default; use "public_read" for anonymous reads
-    assets: { access: "private" },
-  },
   // Branch policy: per-branch tuning
   branch: (branch) => {
     if (branch.isDefault) {

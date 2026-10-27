@@ -8,11 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.1156.0",
     "@neon/config": "^1.9.4",
     "@neon/env": "^1.6.5",
-    "@neon/realtime": "^0.1.2",
-    "@neondatabase/auth": "^0.6.0-beta",
     "@neondatabase/serverless": "^1.2.0",
     "next": "16.4.3",
     "react": "19.3.0",
