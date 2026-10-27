@@ -1,0 +1,373 @@
+{
+  "id": "5eec4d0d-9dc3-4980-aefc-2c05267b261f",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.compass_entries": {
+      "name": "compass_entries",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "entry_date": {
+          "name": "entry_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "virtue1": {
+          "name": "virtue1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "virtue2": {
+          "name": "virtue2",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "virtue3": {
+          "name": "virtue3",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "virtue1_score": {
+          "name": "virtue1_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "virtue2_score": {
+          "name": "virtue2_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "virtue3_score": {
+          "name": "virtue3_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "virtue1_note": {
+          "name": "virtue1_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "virtue2_note": {
+          "name": "virtue2_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "virtue3_note": {
+          "name": "virtue3_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "overall_score": {
+          "name": "overall_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "compass_entries_user_id_users_id_fk": {
+          "name": "compass_entries_user_id_users_id_fk",
+          "tableFrom": "compass_entries",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "compass_entries_user_date_key": {
+          "name": "compass_entries_user_date_key",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id",
+            "entry_date"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "compass_entries_virtue1_score_range": {
+          "name": "compass_entries_virtue1_score_range",
+          "value": "\"compass_entries\".\"virtue1_score\" IS NULL OR (\"compass_entries\".\"virtue1_score\" BETWEEN 0 AND 10)"
+        },
+        "compass_entries_virtue2_score_range": {
+          "name": "compass_entries_virtue2_score_range",
+          "value": "\"compass_entries\".\"virtue2_score\" IS NULL OR (\"compass_entries\".\"virtue2_score\" BETWEEN 0 AND 10)"
+        },
+        "compass_entries_virtue3_score_range": {
+          "name": "compass_entries_virtue3_score_range",
+          "value": "\"compass_entries\".\"virtue3_score\" IS NULL OR (\"compass_entries\".\"virtue3_score\" BETWEEN 0 AND 10)"
+        },
+        "compass_entries_overall_score_range": {
+          "name": "compass_entries_overall_score_range",
+          "value": "\"compass_entries\".\"overall_score\" IS NULL OR (\"compass_entries\".\"overall_score\" BETWEEN 0 AND 10)"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "b2c_sub": {
+          "name": "b2c_sub",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "birthday": {
+          "name": "birthday",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Asia/Vientiane'"
+        },
+        "reminder_time": {
+          "name": "reminder_time",
+          "type": "time",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "deleted_at": {
+          "name": "deleted_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_b2c_sub_unique": {
+          "name": "users_b2c_sub_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "b2c_sub"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user_virtues": {
+      "name": "user_virtues",
+      "schema": "",
+      "columns": {
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "virtue": {
+          "name": "virtue",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_virtues_user_id_users_id_fk": {
+          "name": "user_virtues_user_id_users_id_fk",
+          "tableFrom": "user_virtues",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "user_virtues_user_id_position_pk": {
+          "name": "user_virtues_user_id_position_pk",
+          "columns": [
+            "user_id",
+            "position"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.tasks": {
+      "name": "tasks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_completed": {
+          "name": "is_completed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        },
+        "scheduled_at": {
+          "name": "scheduled_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tasks_user_id_users_id_fk": {
+          "name": "tasks_user_id_users_id_fk",
+          "tableFrom": "tasks",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

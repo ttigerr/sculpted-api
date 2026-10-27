@@ -5,12 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "neon-env run -- drizzle-kit migrate",
+    "db:studio": "neon-env run -- drizzle-kit studio"
   },
   "dependencies": {
     "@neon/config": "^1.9.4",
     "@neon/env": "^1.6.5",
     "@neondatabase/serverless": "^1.2.0",
+    "drizzle-orm": "^0.45.4",
     "next": "16.4.3",
     "react": "19.3.0",
     "react-dom": "19.3.0"
@@ -19,6 +23,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.11",
     "typescript": "^5"
   }
 }
