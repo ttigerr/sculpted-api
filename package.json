@@ -8,6 +8,7 @@
     "start": "next start",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "neon-env run -- drizzle-kit migrate",
+    "db:migrate:ci": "drizzle-kit migrate",
     "db:studio": "neon-env run -- drizzle-kit studio"
   },
   "dependencies": {
