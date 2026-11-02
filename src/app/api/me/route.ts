@@ -52,6 +52,15 @@ export const GET = withAuth(async (_req, user) => {
   return NextResponse.json(toProfileDto(row));
 });
 
+// Deletes the account and everything in it: compass entries, tasks and
+// virtues are removed with the user row by their ON DELETE CASCADE.
+// TODO: once Azure is set up, also delete the user's B2C identity (Microsoft
+// Graph), otherwise signing in again creates a fresh, empty account.
+export const DELETE = withAuth(async (_req, user) => {
+  await db.delete(users).where(eq(users.id, user.id));
+  return new NextResponse(null, { status: 204 });
+});
+
 export const PATCH = withAuth(async (req, user) => {
   const body = patchSchema.parse(await req.json());
 

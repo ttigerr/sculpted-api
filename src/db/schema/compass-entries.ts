@@ -12,9 +12,11 @@ import {
 } from "drizzle-orm/pg-core";
 import { users } from "./users";
 
-// Score columns are 0-10. Confirm the range with the mobile developer before shipping.
+// Virtue scores are 0-10 (the app's counter range). overall_score is a 0-100
+// percentage of the three virtue scores, computed by the API.
 const SCORE_MIN = 0;
 const SCORE_MAX = 10;
+const OVERALL_MAX = 100;
 
 export const compassEntries = pgTable(
   "compass_entries",
@@ -57,7 +59,7 @@ export const compassEntries = pgTable(
     ),
     check(
       "compass_entries_overall_score_range",
-      sql`${t.overallScore} IS NULL OR (${t.overallScore} BETWEEN ${sql.raw(String(SCORE_MIN))} AND ${sql.raw(String(SCORE_MAX))})`,
+      sql`${t.overallScore} IS NULL OR (${t.overallScore} BETWEEN ${sql.raw(String(SCORE_MIN))} AND ${sql.raw(String(OVERALL_MAX))})`,
     ),
   ],
 );

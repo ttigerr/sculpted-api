@@ -23,8 +23,15 @@ const upsertSchema = z.object({
   virtue3: z.string().min(1),
   virtue3Score: scoreSchema,
   virtue3Note: z.string().optional(),
-  overallScore: scoreSchema,
+  // Accepted for compatibility with older app builds but ignored: the server
+  // computes it so clients can't store a value that disagrees with the scores.
+  overallScore: z.number().optional(),
 });
+
+// Same formula as the app's computeOverallScore: total of three 0-10 scores as a 0-100 percentage.
+function computeOverallScore(s1: number, s2: number, s3: number): number {
+  return Math.floor(((s1 + s2 + s3) / 30) * 100);
+}
 
 function toCompassDto(row: CompassRow) {
   return {
@@ -80,7 +87,11 @@ export const POST = withAuth(async (req, user) => {
     virtue1Note: body.virtue1Note ?? null,
     virtue2Note: body.virtue2Note ?? null,
     virtue3Note: body.virtue3Note ?? null,
-    overallScore: body.overallScore,
+    overallScore: computeOverallScore(
+      body.virtue1Score,
+      body.virtue2Score,
+      body.virtue3Score,
+    ),
   };
 
   const [row] = await db

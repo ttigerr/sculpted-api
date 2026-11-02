@@ -15,9 +15,20 @@ const keySets = flows.map((flow) =>
   ),
 );
 
+// Local-only login shortcut so the app can be tested without Azure B2C.
+// `next dev` sets NODE_ENV=development; deployed builds run as production,
+// so this can't be switched on in the cloud, even by mistake.
+const DEV_TOKEN = "dev-token";
+const DEV_SUB = "dev-user";
+const devBypass =
+  process.env.NODE_ENV === "development" &&
+  process.env.DEV_AUTH_BYPASS === "true";
+
 export async function requireUser(req: Request): Promise<string> {
   const token = req.headers.get("authorization")?.replace(/^Bearer /, "");
   if (!token) throw new HttpError(401, "Missing token");
+
+  if (devBypass && token === DEV_TOKEN) return DEV_SUB;
 
   for (const keys of keySets) {
     try {
