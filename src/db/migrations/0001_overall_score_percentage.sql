@@ -1,0 +1,2 @@
+ALTER TABLE "compass_entries" DROP CONSTRAINT "compass_entries_overall_score_range";--> statement-breakpoint
+ALTER TABLE "compass_entries" ADD CONSTRAINT "compass_entries_overall_score_range" CHECK ("compass_entries"."overall_score" IS NULL OR ("compass_entries"."overall_score" BETWEEN 0 AND 100));
